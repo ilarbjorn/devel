@@ -1,6 +1,6 @@
 # Devel
 
-Sets up a custom development environment on workstation, for use with Gitlab.com (default) or for local files.
+Sets up a custom development environment on workstation, for use with Github.com or local files.
 
 ## Getting started
 
