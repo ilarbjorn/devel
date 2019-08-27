@@ -1,6 +1,6 @@
 # Devel
 
-Set up development space on local computer, for use with Gitlab
+Set up development space on local computer, for use with Gitlab.com.
 
 Should be used to initialize a directory where you want to do your Github development.
 
