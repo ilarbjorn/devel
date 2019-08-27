@@ -1,6 +1,6 @@
-# Set up development space on local computer, for use with Gitlab
+# Devel
 
-A script to setup a custom git development space.
+Set up development space on local computer, for use with Gitlab
 
 Should be used to initialize a directory where you want to do your Github development.
 
