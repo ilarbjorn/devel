@@ -8,7 +8,7 @@ Sets up a custom development environment on a workstation, for use with Github.c
 _Note: Running in Github mode you will need an empty repository with "name" already created on your Github account._
 
 1. Clone this repository.
-2. Edit init-projects.sh and apply proper configuration.
+2. Edit init-projects.sh and .gitignore to apply proper configuration.
 3. Run `init-project.sh --help`
 ```
 Usage: ./init-project.sh [-e environment] -t type -p name
