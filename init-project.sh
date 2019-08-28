@@ -14,10 +14,10 @@ git_url="git@github.com:$git_account"
 git_dir="github.com/$git_account" # file system location
 
 # USAGE
-usage="Usage: $0 [-e environment] -t type -n name
+usage="Usage: $0 [-e environment] -t type -p name
     [-e environment]    Type of environment to create, ie local or github
     -t type             Type of project, corresponds to folders under skel/
-    -n name             Name of the Github repository/local project"
+    -p name             Name of the Github repository/local project"
 
 # Parse command line
 OPTIND=1
