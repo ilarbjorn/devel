@@ -5,7 +5,7 @@ Sets up a custom development environment on a workstation, for use with Github.c
 
 ## Getting started
 
-Note: Unless running in local mode, you will need an empty repository with "name" already created on your Github account.
+_Note: Unless running in local mode, you will need an empty repository with "name" already created on your Github account._
 
 1. Clone this repository.
 2. Edit init-projects.sh and apply proper configuration.
