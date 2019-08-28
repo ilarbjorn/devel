@@ -6,13 +6,13 @@
 # Author: Björn Sjöberg, bjorn@willaiboda.se
 
 # SETTINGS
-# Do customize.
+# Do customize. But order matters.
 devel_dir="$HOME/devel"
 devel_type="github" # [ local | github ]
-local_dir="local" # file system location
 git_account="ilarbjorn"
 git_url="git@github.com:$git_account"
-git_dir="github.com/$git_account" # file system location
+git_dir="$devel_dir/github.com/$git_account" # file system location
+local_dir="$devel_dir/local" # file system location
 
 # USAGE
 usage="Usage: $0 [-e environment] -t type -p name
@@ -41,7 +41,7 @@ while getopts ":ht:p:e:" opt; do
     esac
 done
 
-# Check valid use
+# Check if at least on option is specified
 if [ "$#" -lt 2 ]; then
     echo "$usage"
     exit 1
@@ -55,7 +55,7 @@ fi
 
 # Check if skel files exist
 if [ ! -d "skel/$project_type" ]; then
-    echo "skel/$project_type not found. Please, create dir and add skeleton files."
+    echo "skel/$project_type not found. Create directory and add skeleton files."
     exit 1
 fi
 
