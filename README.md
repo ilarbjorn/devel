@@ -23,6 +23,8 @@ This will give you something like this:
 
 ```
 devel
+├── .git
+├── .gitignore
 ├── LICENSE
 ├── README.md
 ├── github.com
