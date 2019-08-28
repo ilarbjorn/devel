@@ -8,19 +8,23 @@ Note: Unless running in local mode, you will need an empty repository with $proj
 
 1. Clone this repository into $HOME/devel or other preferred folder.
 2. Edit init-projects.sh and apply proper configuration.
-3. Run `init-project.sh --help` and then re-run with the wanted flags, ie: `init-project.sh projectname -t shell`
+3. Run `init-project.sh --help` and then re-run with the wanted flags, ie: `init-project.sh -p project_name -t type`
 
 You will then have the following structure:
 
 ```
 .
-├── .gitignore
+├── LICENSE
+├── README.md
 ├── github.com
-│   └── $your_git_account
-│       └── projectname
-│           └── projectname.sh
+│   └── $git_account
+        └── $project_name
+            └── * skeleton files of $type
 ├── init-project.sh
 ├── local
+        └── $project_name
+            └── * skeleton files of $type
 └── skel
-    └── shell.sh
+    └── shell
+        └── main.sh
 ```
