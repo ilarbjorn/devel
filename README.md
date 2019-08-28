@@ -1,6 +1,7 @@
-# Devel
+Devel
+======
 
-Sets up a custom development environment on a workstation, for use with Github.com or local files.
+Sets up a custom development environment on a workstation, for use with Github.com or local files. 
 
 ## Getting started
 
@@ -16,7 +17,7 @@ Usage: ./init-project.sh [-e environment] -t type -p name
     -t type             Type of project, corresponds to folders under skel/
     -p name             Project name for Github repository/local project
 ```
-4. Create your project, ie `init-project.sh -p name -t type`
+4. Create your project, ie `init-project.sh -p MyProject -t shell`
 
 This will give you something like this:
 
@@ -26,17 +27,21 @@ devel
 ├── README.md
 ├── github.com
 │   └── $git_account
-│       └── $project
+│       └── MyProject
 │           ├── .git
 │           ├── LICENSE
 │           ├── README.md
 │           └── main.sh
 ├── init-project.sh
 ├── local
-│   └── project
+│   └── MyProject
 │       ├── .git
 │       └── main.sh
 └── skel
     └── shell
             └── main.sh
 ```
+
+### Notes
+* In local mode it sets up the directories and inits an empty git repository.
+* In Github mode it sets up the directories and clone the project into that folder.
