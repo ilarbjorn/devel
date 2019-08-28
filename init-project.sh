@@ -67,7 +67,7 @@ fi
 if [ "$devel_env" == "local" ]; then
     project_dir="$local_dir/$project"
     if [ ! -d "$project_dir" ]; then
-        mkdir -p "$$project_dir"
+        mkdir -p "$project_dir"
     fi
     cp -r "skel/$project_type/"* "$project_dir"
     cd "$project_dir"
