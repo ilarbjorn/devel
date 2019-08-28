@@ -19,7 +19,7 @@ Usage: ./init-project.sh [-e environment] -t type -p name
 ```
 4. Create your project, ie `init-project.sh -p MyProject -t shell`
 
-This will give you something like this:
+That would give you something like this:
 
 ```
 devel
