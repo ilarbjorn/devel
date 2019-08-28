@@ -4,27 +4,39 @@ Sets up a custom development environment on a workstation, for use with Github.c
 
 ## Getting started
 
-Note: Unless running in local mode, you will need an empty repository with $projectname already created on your Github account.
+Note: Unless running in local mode, you will need an empty repository with "name" already created on your Github account.
 
-1. Clone this repository into $HOME/devel or other preferred folder.
+1. Clone this repository.
 2. Edit init-projects.sh and apply proper configuration.
-3. Run `init-project.sh --help` and then re-run with the wanted flags, ie: `init-project.sh -p project_name -t type`
+3. Run `init-project.sh --help`
+```
+Usage: ./init-project.sh [-e environment] -t type -p name
 
-You will then have the following structure:
+    [-e environment]    Type of environment to create, ie local or github
+    -t type             Type of project, corresponds to folders under skel/
+    -p name             Project name for Github repository/local project
+```
+4. Create your project, ie `init-project.sh -p name -t type`
+
+This will give you something like this:
 
 ```
-.
+devel
 ├── LICENSE
 ├── README.md
 ├── github.com
 │   └── $git_account
-        └── $project_name
-            └── * skeleton files of $type
+│       └── $project
+│           ├── .git
+│           ├── LICENSE
+│           ├── README.md
+│           └── main.sh
 ├── init-project.sh
 ├── local
-        └── $project_name
-            └── * skeleton files of $type
+│   └── project
+│       ├── .git
+│       └── main.sh
 └── skel
     └── shell
-        └── main.sh
+            └── main.sh
 ```

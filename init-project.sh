@@ -7,7 +7,8 @@
 
 # SETTINGS
 # Do customize.
-env_type="github" # [ local | github ]
+devel_dir="$HOME/devel"
+devel_type="github" # [ local | github ]
 local_dir="local" # file system location
 git_account="ilarbjorn"
 git_url="git@github.com:$git_account"
@@ -15,9 +16,10 @@ git_dir="github.com/$git_account" # file system location
 
 # USAGE
 usage="Usage: $0 [-e environment] -t type -p name
+
     [-e environment]    Type of environment to create, ie local or github
     -t type             Type of project, corresponds to folders under skel/
-    -p name             Name of the Github repository/local project"
+    -p name             Project name for Github repository/local project"
 
 # Parse command line
 OPTIND=1
@@ -31,13 +33,19 @@ while getopts ":ht:p:e:" opt; do
         ;;
     p)  project="$OPTARG"
         ;;
-    e)  env_type="$OPTARG"
+    e)  devel_type="$OPTARG"
         ;;
     *)  echo "Error: invalid option or use of option."
         exit 1
         ;;
     esac
 done
+
+# Check valid use
+if [ "$#" -lt 2 ]; then
+    echo "$usage"
+    exit 1
+fi
 
 # Make sure both project type and name are specified
 if [ "x$project_type" == "x" ] || [ "x$project" == "x" ]; then
@@ -53,19 +61,20 @@ fi
 
 # MAIN
 
-# TODO Check project type and setup like so
-if [ "$env_type" == "local" ]; then
+# Check project type and setup accordingly
+if [ "$devel_type" == "local" ]; then
     if [ ! -d "$local_dir/$project" ]; then
-        echo "> mkdir -p $local_dir/$project"
+        mkdir -p "$local_dir/$project"
     fi
-    echo "> cp -r skel/$project_type -> $local_dir/$project"
-    echo "> cd $local_dir/$project"
-    echo "> git init"
-elif [ "$env_type" == "github" ]; then
+    cp -r "skel/$project_type/"* "$local_dir/$project"
+    cd "$local_dir/$project"
+    git init
+elif [ "$devel_type" == "github" ]; then
     if [ ! -d "$git_dir/$project" ]; then
-        echo "> mkdir -p $git_dir/$project"
+        mkdir -p "$git_dir/$project"
     fi
-    echo "> cp -r skel/$project_type -> $git_dir/$project"
-    echo "> cd $git_dir/$project"
-    echo "> git clone $git_url/$project"
+    cd "$git_dir"
+    git clone "$git_url/$project"
+    cd $devel_dir
+    cp -r "skel/$project_type/"* "$git_dir/$project"
 fi
