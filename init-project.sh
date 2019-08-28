@@ -8,11 +8,13 @@
 # SETTINGS
 # Do customize. But order matters.
 devel_dir="$HOME/devel"
-devel_type="github" # [ local | github ]
+devel_env="github" # Set default devel environment, override with -e
 git_account="ilarbjorn"
 git_url="git@github.com:$git_account"
-git_dir="$devel_dir/github.com/$git_account" # file system location
-local_dir="$devel_dir/local" # file system location
+
+# Local file system locations
+git_dir="$devel_dir/github.com/$git_account" 
+local_dir="$devel_dir/local" 
 
 # USAGE
 usage="Usage: $0 [-e environment] -t type -p name
@@ -63,18 +65,21 @@ fi
 
 # Check project type and setup accordingly
 if [ "$devel_type" == "local" ]; then
-    if [ ! -d "$local_dir/$project" ]; then
-        mkdir -p "$local_dir/$project"
+    project_dir="$local_dir/$project"
+    if [ ! -d "$project_dir" ]; then
+        mkdir -p "$$project_dir"
     fi
-    cp -r "skel/$project_type/"* "$local_dir/$project"
-    cd "$local_dir/$project"
+    cp -r "skel/$project_type/"* "$project_dir"
+    cd "$project_dir"
     git init
+    exit 0
 elif [ "$devel_type" == "github" ]; then
-    if [ ! -d "$git_dir/$project" ]; then
-        mkdir -p "$git_dir/$project"
+    project_dir="$git_dir/$project"
+    if [ ! -d "$project_dir" ]; then
+        mkdir -p "$project_dir"
     fi
     cd "$git_dir"
     git clone "$git_url/$project"
     cd $devel_dir
-    cp -r "skel/$project_type/"* "$git_dir/$project"
+    cp -r "skel/$project_type/"* "$project_dir"
 fi
