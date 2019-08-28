@@ -35,7 +35,7 @@ while getopts ":ht:p:e:" opt; do
         ;;
     p)  project="$OPTARG"
         ;;
-    e)  devel_type="$OPTARG"
+    e)  devel_env="$OPTARG"
         ;;
     *)  echo "Error: invalid option or use of option."
         exit 1
@@ -64,7 +64,7 @@ fi
 # MAIN
 
 # Check project type and setup accordingly
-if [ "$devel_type" == "local" ]; then
+if [ "$devel_env" == "local" ]; then
     project_dir="$local_dir/$project"
     if [ ! -d "$project_dir" ]; then
         mkdir -p "$$project_dir"
@@ -73,7 +73,7 @@ if [ "$devel_type" == "local" ]; then
     cd "$project_dir"
     git init
     exit 0
-elif [ "$devel_type" == "github" ]; then
+elif [ "$devel_env" == "github" ]; then
     project_dir="$git_dir/$project"
     if [ ! -d "$project_dir" ]; then
         mkdir -p "$project_dir"
