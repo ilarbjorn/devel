@@ -1,55 +1,71 @@
-#!/bin/env bash
+#!/bin/sh
 #
 # Sets up a custom development environment on a workstation, for use with
 # Github.com or local files.
 #
 # Author: Björn Sjöberg, bjorn@willaiboda.se
 
-# Settings, do customize
+# SETTINGS
+# Do customize.
+env_type="github" # [ local | github ]
+local_dir="local" # file system location
 git_account="ilarbjorn"
-giturl="git@github.com:$git_account"
+git_url="git@github.com:$git_account"
+git_dir="github.com/$git_account" # file system location
 
-# File system location for projects
-gitfolder="github.com/$git_account"
-localfolder="local"
-
-# Print usage information
-usage="Usage: $0 [-hl] -t <project_type> -n <name>
-
-  [-h]                  Show this help message
-  [-l]                  Make this a local project, default is Github
-  -t <project_type>     Type of project, corresponds to folders under skel/
-  -n <name>             Name of the Github repository/local project"
+# USAGE
+usage="Usage: $0 [-e environment] -t type -n name
+    [-e environment]    Type of environment to create, ie local or github
+    -t type             Type of project, corresponds to folders under skel/
+    -n name             Name of the Github repository/local project"
 
 # Parse command line
 OPTIND=1
-while getopts ":hlt:n:" option "$@" ; do
-    case "$option" in
-        ( h ) echo "$usage" && exit 2;; # TODO exit code?
-        ( l ) is_local="True";; # TODO bad variable name
-        ( t ) project_type="$OPTARG";;
-        ( n ) project="$OPTARG";;
-        ( * ) echo "$usage";;
+while getopts ":ht:p:e:" opt; do
+    case "$opt" in
+    h)
+        echo "$usage"
+        exit 0
+        ;;
+    t)  project_type="$OPTARG"
+        ;;
+    p)  project="$OPTARG"
+        ;;
+    e)  env_type="$OPTARG"
+        ;;
+    *)  echo "Error: invalid option or use of option."
+        exit 1
+        ;;
     esac
 done
 
-# TODO: 
-# Make this a function init_project(type)
-if [ -d "$skel/$type" ]; then
-    if [ "$is_local" ]; then # TODO
-        if [ ! -d "$localfolder/$project" ]; then
-            echo "mkdir -p $localfolder/$project"
-        fi
-        echo "cp -r skel/$type -> $localfolder/$project"
-    else
-        if [ ! -d "$gitfolder/$project" ]; then
-            echo "mkdir -p $gitfolder/$project"
-        fi
-        echo "cp -r skel/$type -> $gitfolder/$project"
-    fi
-else
-    echo "No such skeleton files, unsupported type"
+# Make sure both project type and name are specified
+if [ "x$project_type" == "x" ] || [ "x$project" == "x" ]; then
+    echo "Error: you need to specify both type and name."
+    exit 1
 fi
 
-# _MAIN_
-# init_project($project_type)
+# Check if skel files exist
+if [ ! -d "skel/$project_type" ]; then
+    echo "skel/$project_type not found. Please, create dir and add skeleton files."
+    exit 1
+fi
+
+# MAIN
+
+# TODO Check project type and setup like so
+if [ "$env_type" == "local" ]; then
+    if [ ! -d "$local_dir/$project" ]; then
+        echo "> mkdir -p $local_dir/$project"
+    fi
+    echo "> cp -r skel/$project_type -> $local_dir/$project"
+    echo "> cd $local_dir/$project"
+    echo "> git init"
+elif [ "$env_type" == "github" ]; then
+    if [ ! -d "$git_dir/$project" ]; then
+        echo "> mkdir -p $git_dir/$project"
+    fi
+    echo "> cp -r skel/$project_type -> $git_dir/$project"
+    echo "> cd $git_dir/$project"
+    echo "> git clone $git_url/$project"
+fi
