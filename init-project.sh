@@ -8,7 +8,7 @@
 # SETTINGS
 # Do customize. But order matters.
 devel_dir="$HOME/devel"
-devel_env="github" # Set default devel environment, override with -e
+devel_env="github" # Set default devel environment, override with -m
 git_account="ilarbjorn"
 git_url="git@github.com:$git_account"
 
@@ -17,15 +17,15 @@ git_dir="$devel_dir/github.com/$git_account"
 local_dir="$devel_dir/local" 
 
 # USAGE
-usage="Usage: $0 [-e environment] -t type -p name
+usage="Usage: $0 [-m mode] -t type -p name
 
-    [-e environment]    Type of environment to create, ie local or github
+    [-m mode]           Type of environment to create, overrides config
     -t type             Type of project, corresponds to folders under skel/
     -p name             Project name for Github repository/local project"
 
 # Parse command line
 OPTIND=1
-while getopts ":ht:p:e:" opt; do
+while getopts ":ht:p:m:" opt; do
     case "$opt" in
     h)
         echo "$usage"
@@ -35,7 +35,7 @@ while getopts ":ht:p:e:" opt; do
         ;;
     p)  project="$OPTARG"
         ;;
-    e)  devel_env="$OPTARG"
+    m)  devel_env="$OPTARG"
         ;;
     *)  echo "Error: invalid option or use of option."
         exit 1
@@ -43,6 +43,7 @@ while getopts ":ht:p:e:" opt; do
     esac
 done
 
+# TEST
 # Check if at least on option is specified
 if [ "$#" -lt 2 ]; then
     echo "$usage"
