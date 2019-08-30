@@ -1,31 +1,32 @@
 #!/bin/sh
 #
-# Sets up a custom development environment on a workstation, for use with
-# Github.com or local files.
+# Sets up a development environment the way I want it. 
+#
 #
 # Author: Björn Sjöberg, bjorn@willaiboda.se
 
 # SETTINGS
-# Do customize. But order matters.
-devel_dir="$HOME/devel"
+# Do customize. 
 devel_env="github" # Set default devel environment, override with -m
 git_account="ilarbjorn"
 git_url="git@github.com:$git_account"
 
 # Local file system locations
-git_dir="$devel_dir/github.com/$git_account" 
-local_dir="$devel_dir/local" 
+base_dir="$HOME/devel"
+skel_dir="$base_dir/skel"
+git_dir="$base_dir/github.com/$git_account" 
+local_dir="$base_dir/local" 
 
 # USAGE
-usage="Usage: $0 [-m mode] -t type -p name
+usage="Usage: $0 [-m mode] -t type -n name
 
     [-m mode]           Type of environment to create, overrides config
     -t type             Type of project, corresponds to folders under skel/
-    -p name             Project name for Github repository/local project"
+    -n name             Project name for Github repository/local project"
 
 # Parse command line
 OPTIND=1
-while getopts ":ht:p:m:" opt; do
+while getopts ":ht:n:m:" opt; do
     case "$opt" in
     h)
         echo "$usage"
@@ -33,11 +34,11 @@ while getopts ":ht:p:m:" opt; do
         ;;
     t)  project_type="$OPTARG"
         ;;
-    p)  project="$OPTARG"
+    n)  name="$OPTARG"
         ;;
     m)  devel_env="$OPTARG"
         ;;
-    *)  echo "Error: invalid option or use of option."
+    *)  echo "Invalid option or use of option."
         exit 1
         ;;
     esac
@@ -51,36 +52,42 @@ if [ "$#" -lt 2 ]; then
 fi
 
 # Make sure both project type and name are specified
-if [ "x$project_type" == "x" ] || [ "x$project" == "x" ]; then
-    echo "Error: you need to specify both type and name."
+if [ ! -v project_type ] || [ ! -v name ]; then
+    echo "You need to specify both type and name."
     exit 1
 fi
 
 # Check if skel files exist
-if [ ! -d "skel/$project_type" ]; then
-    echo "skel/$project_type not found. Create directory and add skeleton files."
+if [ ! -d "$skel_dir/$project_type" ]; then
+    echo "$skel_dir/$project_type not found. Create directory and add skeleton files."
     exit 1
 fi
 
 # MAIN
-
+unset project_dir
 # Check project type and setup accordingly
-if [ "$devel_env" == "local" ]; then
-    project_dir="$local_dir/$project"
+if [ "$devel_env" = "local" ]; then
+    project_dir="$local_dir/$name"
     if [ ! -d "$project_dir" ]; then
+        echo "Creating $project_dir.."
         mkdir -p "$project_dir"
     fi
-    cp -r "skel/$project_type/"* "$project_dir"
-    cd "$project_dir"
-    git init
+    echo "Copying skel files.."
+    cp -r "$skel_dir/$project_type/"* "$project_dir"
+    echo "Initializing.."
+    git init "$project_dir"
+    echo "Done."
     exit 0
-elif [ "$devel_env" == "github" ]; then
-    project_dir="$git_dir/$project"
+elif [ "$devel_env" = "github" ]; then
+    project_dir="$git_dir/$name"
     if [ ! -d "$project_dir" ]; then
+        echo "Creating $project_dir.."
         mkdir -p "$project_dir"
     fi
-    cd "$git_dir"
-    git clone "$git_url/$project"
-    cd $devel_dir
-    cp -r "skel/$project_type/"* "$project_dir"
+    echo "Cloning $name to $git_url/$name..."
+    git clone "$git_url/$name" "$project_dir"
+    echo "Copying skel files.."
+    cp -r "$skel_dir/$project_type/"* "$project_dir"
+    echo "Done."
+    exit 0
 fi
