@@ -11,11 +11,11 @@ _Note: When running in Github mode you __will need__ an empty repository with "n
 2. Edit init-projects.sh and .gitignore to apply proper configuration.
 3. Run `init-project.sh --help`
 ```
-Usage: ./init-project.sh [-m mode] -t type -p name
+Usage: ./init-project.sh [-m mode] -t type -n name
 
     [-m mode]           Type of environment to create, overrides config
     -t type             Type of project, corresponds to folders under skel/
-    -p name             Project name for Github repository/local project
+    -n name             Project name for Github repository/local project
 ```
 4. Create your project, ie `init-project.sh -p MyProject -t shell`
 
