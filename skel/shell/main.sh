@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #
 # DESCRIPTION
 #
@@ -7,7 +7,7 @@
 # SETTINGS
 option=""
 
-# USAGE
+# USAGE TODO: Make this a function
 usage="Usage: $0 [-h]
     [-h]    Shows this help"
 
@@ -24,3 +24,5 @@ while getopts ":h" opt; do
         ;;
     esac
 done
+
+# MAIN

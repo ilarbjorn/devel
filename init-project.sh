@@ -74,8 +74,8 @@ if [ "$devel_env" = "local" ]; then
     fi
     echo "Copying skel files.."
     cp -r "$skel_dir/$project_type/"* "$project_dir"
-    echo "Initializing.."
-    git init "$project_dir"
+#    echo "Initializing.."
+#    git init "$project_dir"
     echo "Done."
     exit 0
 elif [ "$devel_env" = "github" ]; then
