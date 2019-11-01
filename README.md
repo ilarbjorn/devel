@@ -38,7 +38,6 @@ devel
 ├── local
 │   └── type
 │      └── MyProject
-│          ├── .git
 │          └── main.sh
 └── skel
     └── shell
