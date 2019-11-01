@@ -67,7 +67,7 @@ fi
 unset project_dir
 # Check project type and setup accordingly
 if [ "$devel_env" = "local" ]; then
-    project_dir="$local_dir/$name"
+    project_dir="$local_dir/$project_type/$name"
     if [ ! -d "$project_dir" ]; then
         echo "Creating $project_dir.."
         mkdir -p "$project_dir"
