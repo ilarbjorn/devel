@@ -36,7 +36,7 @@ devel
 │           └── main.sh
 ├── init-project.sh
 ├── local
-│   └── type
+│   └── "type"
 │      └── MyProject
 │          └── main.sh
 └── skel
