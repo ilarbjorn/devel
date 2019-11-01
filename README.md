@@ -17,7 +17,7 @@ Usage: ./init-project.sh [-m mode] -t type -n name
     -t type             Type of project, corresponds to folders under skel/
     -n name             Project name for Github repository/local project
 ```
-4. Create your project, ie `init-project.sh -p MyProject -t shell`
+4. Create your project, ie `init-project.sh -n MyProject -t shell`
 
 That would give you something like this:
 
@@ -36,14 +36,15 @@ devel
 │           └── main.sh
 ├── init-project.sh
 ├── local
-│   └── MyProject
-│       ├── .git
-│       └── main.sh
+│   └── $project_type
+│      └── MyProject
+│          ├── .git
+│          └── main.sh
 └── skel
     └── shell
-            └── main.sh
+        └── main.sh
 ```
 
 ### Notes
-* In local mode it sets up the directories and inits an empty git repository.
+* In local mode it just sets up the directories.
 * In Github mode it sets up the directories and clone the project into that folder.
