@@ -36,7 +36,7 @@ devel
 │           └── main.sh
 ├── init-project.sh
 ├── local
-│   └── $project_type
+│   └── type
 │      └── MyProject
 │          ├── .git
 │          └── main.sh
